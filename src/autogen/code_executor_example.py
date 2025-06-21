@@ -8,7 +8,7 @@ from autogen.coding import LocalCommandLineCodeExecutor
 from dotenv import load_dotenv
 load_dotenv()
 
-llm_config = [
+config_list = [
     {
         "model": "gpt-4o-mini",
         "api_key": os.environ["OPENAI_API_KEY"]
@@ -18,7 +18,7 @@ llm_config = [
 assistant_agent = autogen.AssistantAgent(
     name="assistant",
     llm_config={
-        "config_list": llm_config,
+        "config_list": config_list,
         "temperature": 0  # Ensures high consistency in code generation with settings that make responses consistent
     }
 )
@@ -49,6 +49,6 @@ print("Cost info:", chat_result.cost)
 # To send additional messages continuing from an existing conversation, send another message to the assistant appending to the existing conversation thread.
 user_proxy.send(
     recipient=assistant_agent,
-    message="""예시 영어문장을 만들고, 키워드를 추출하세요"""
+    message="""메이저리그에 대한 간략한 설명문을 만들고, 키워드를 추출하세요"""
 )
 

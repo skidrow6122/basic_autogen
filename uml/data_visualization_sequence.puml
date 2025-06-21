@@ -1,0 +1,77 @@
+@startuml Data Visualization Multi-Agent Workflow
+!theme plain
+title AutoGen Data Visualization with Group Chat
+
+actor "User" as U
+participant "User Proxy Agent" as UPA
+participant "Group Chat Manager" as GCM
+participant "Coder Agent" as CA
+participant "Critic Agent" as CR
+
+== Initialization ==
+U -> UPA: Run data_visualization.py
+activate UPA
+
+UPA -> GCM: initiate_chat()\n"Load Titanic data and create\nage vs pclass relationship chart"
+activate GCM
+
+== Round 1: Data Loading ==
+GCM -> CA: "Load data from GitHub\nand analyze structure"
+activate CA
+CA --> GCM: Generate data loading code\n(pandas.read_csv + column analysis)
+deactivate CA
+
+GCM -> UPA: Execute data loading code
+UPA -> UPA: Run code & load Titanic dataset\nDisplay column names
+UPA --> GCM: Data loaded successfully
+
+== Round 2: Visualization Planning ==
+GCM -> CA: "Create chart showing\nage vs pclass relationship"
+activate CA
+CA --> GCM: Plan: Use boxplot\n(age=continuous, pclass=categorical)
+deactivate CA
+
+== Round 3: Code Generation & Execution ==
+GCM -> CA: "Generate visualization code"
+activate CA
+CA --> GCM: seaborn boxplot code\n+ save as PNG file
+deactivate CA
+
+GCM -> UPA: Execute visualization code
+UPA -> UPA: Create boxplot chart\nSave to "data/age_vs_pclass_boxplot.png"
+UPA --> GCM: Chart created and saved
+
+== Round 4: Code Review ==
+GCM -> CR: "Evaluate the visualization code"
+activate CR
+CR -> CR: Assess 6 criteria:\nBug, Transformation, Compliance,\nType, Encoding, Aesthetics
+CR --> GCM: **Scores & Recommendations:**\nOverall good quality\nSuggestions for improvement
+deactivate CR
+
+== Round 5-6: Optional Improvements ==
+alt If improvements needed
+    GCM -> CA: "Apply critic's recommendations"
+    activate CA
+    CA --> GCM: Enhanced code with improvements
+    deactivate CA
+    
+    GCM -> UPA: Execute improved code
+    UPA -> UPA: Generate enhanced visualization
+    UPA --> GCM: Final chart completed
+end
+
+== Final Result ==
+GCM --> UPA: Group chat completed
+UPA -> U: Display final image:\nage_vs_pclass_boxplot.png
+deactivate GCM
+deactivate UPA
+
+note right of U
+  Final Output:
+  ✓ Titanic dataset loaded
+  ✓ Age vs Pclass boxplot created
+  ✓ Quality assessment completed
+  ✓ Chart saved as PNG file
+end note
+
+@enduml
