@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.13,<3.14"
-pyautogen = "^0.9"
+ag2 = "^0.9"
 langchain-openai = "^0.3.23"
 matplotlib = "^3.10.3"
 pandas = "^2.3.0"
